@@ -2,13 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
-/* === Background scroller helpers you added earlier === */
-.brand-scroll { scrollbar-width: none; -ms-overflow-style: none; }
-.brand-scroll::-webkit-scrollbar { display: none; }
-
-@media (prefers-reduced-motion: reduce) {
-  .brand-scroll { scroll-behavior: auto !important; }
+/* ==== Global overflow + width guards (fix mobile sideways scroll) ==== */
+html, body {
+  overflow-x: hidden;          /* prevent horizontal scroll */
 }
 
-/* ===== TEMP NUKE: force header/nav transparent ===== */
-/* Remove after you confirm it's transparent */
+* {
+  min-width: 0;                /* prevent flex/grid children from pushing wider than viewport */
+}
+
+img, video, canvas, svg {
+  max-width: 100%;             /* media never exceed container width */
+  height: auto;
+  display: block;              /* avoids inline-gap causing tiny overflow */
+}
+
+/* If any container uses full-bleed backgrounds, this keeps snap without sideways scroll */
+section, header, main, footer, div {
+  box-sizing: border-box;      /* safer sizing everywhere */
+}
+
+/* ==== Background scroller helpers (your existing styles) ==== */
+.brand-scroll {
+  scrollbar-width: none;       /* Firefox */
+  -ms-overflow-style: none;    /* IE/Edge */
+}
+.brand-scroll::-webkit-scrollbar {
+  display: none;               /* WebKit */
+}
+
+/* Prefer-reduced-motion: disable smooth scroll nudges */
+@media (prefers-reduced-motion: reduce) {
+  .brand-scroll {
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Extra: make horizontal scroller more touch-friendly on phones */
+@media (max-width: 768px) {
+  .brand-scroll {
+    overscroll-behavior-x: contain;   /* stop page from rubber-banding horizontally */
+    -webkit-overflow-scrolling: touch;/* momentum scrolling on iOS */
+    touch-action: pan-y;              /* avoid accidental horizontal pan capturing */
+  }
+}
