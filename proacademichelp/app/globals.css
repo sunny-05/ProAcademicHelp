@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* === Background scroller helpers you added earlier === */
+.brand-scroll { scrollbar-width: none; -ms-overflow-style: none; }
+.brand-scroll::-webkit-scrollbar { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-scroll { scroll-behavior: auto !important; }
+}
+
+/* ===== TEMP NUKE: force header/nav transparent ===== */
+/* Remove after you confirm it's transparent */

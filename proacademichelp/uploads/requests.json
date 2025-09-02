@@ -1,0 +1,31 @@
+[
+  {
+    "id": "236f1b95-213b-4df7-b9b6-80260676e662",
+    "name": "Soni",
+    "email": "aman@gmail.com",
+    "phone": "8956743521",
+    "service": "Assignment Help (Instant 40% Promo)",
+    "details": "Instant promo form\r\nName: Soni\r\nPhone: 8956743521\r\nEmail: aman@gmail.com\r\nAgreedToTerms: yes",
+    "discount": "40%",
+    "status": "open",
+    "createdAt": "2025-08-26T08:58:18.325Z"
+  },
+  {
+    "id": "a03ddf41-0350-4716-8a22-89e08fab4dd5",
+    "name": "rani singh",
+    "email": "rani45@gmail.com",
+    "service": "Contact",
+    "details": "Subject: content\r\n\r\nEarly",
+    "status": "open",
+    "createdAt": "2025-08-26T09:00:02.451Z"
+  },
+  {
+    "id": "77634b4a-4059-4b98-aab5-d50bfe7ecc9a",
+    "name": "sunny",
+    "email": "you@345",
+    "service": "Contact",
+    "details": "Subject: content\r\n\r\nJldi bhai",
+    "status": "open",
+    "createdAt": "2025-08-26T13:30:03.174Z"
+  }
+]
