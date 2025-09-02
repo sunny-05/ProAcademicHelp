@@ -19,51 +19,54 @@ export default function ServicesGrid() {
 
   return (
     <>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {services.map((s, i) => (
-          <motion.button
-            key={s.id}
-            onClick={() => setOpenId(s.id)}
-            initial={{ opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.45, delay: i * 0.05 }}
-            whileHover={{ y: -4, boxShadow: '0 18px 40px rgba(0,0,0,0.12)' }}
-            whileTap={{ scale: 0.98 }}
-            className="relative h-56 md:h-64 rounded-2xl overflow-hidden border border-slate-200 bg-white group text-left focus:outline-none focus:ring-2 focus:ring-teal-500/70"
-            aria-haspopup="dialog"
-            aria-controls="service-examples-modal"
-          >
-            {/* Dynamic background image with hover zoom */}
-            <div
-              className="absolute inset-0 bg-center bg-cover transition-transform duration-500 group-hover:scale-105"
-              style={{
-                backgroundImage: `url(${s.image})`,
-                backgroundColor: '#f5f7f9', // fallback if image missing
-              }}
-            />
-            {/* Gradient overlay for legibility */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/25 to-transparent" />
-            {/* Small pill */}
-            <div className="absolute top-3 left-3 inline-flex items-center rounded-full bg-white/15 backdrop-blur px-3 py-1 text-xs font-semibold text-white ring-1 ring-white/30">
-              Explore
-            </div>
-            {/* Text content */}
-            <div className="absolute inset-x-0 bottom-0 p-4 md:p-5 text-white">
-              <h3 className="text-lg font-extrabold leading-tight">{s.title}</h3>
-              <p className="text-sm text-white/90">{s.desc}</p>
-              <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-white/95">
-                View example
-                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path d="M5 12h14M13 5l7 7-7 7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </span>
-            </div>
-          </motion.button>
-        ))}
+      {/* FULL-WIDTH, NO-HORIZONTAL-SCROLL WRAPPER */}
+      <div className="w-full max-w-7xl mx-auto px-4 overflow-x-hidden">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {services.map((s, i) => (
+            <motion.button
+              key={s.id}
+              onClick={() => setOpenId(s.id)}
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.45, delay: i * 0.05 }}
+              whileHover={{ y: -4, boxShadow: '0 18px 40px rgba(0,0,0,0.12)' }}
+              whileTap={{ scale: 0.98 }}
+              className="relative w-full h-56 md:h-64 rounded-2xl overflow-hidden border border-slate-200 bg-white group text-left focus:outline-none focus:ring-2 focus:ring-teal-500/70 isolate"
+              aria-haspopup="dialog"
+              aria-controls="service-examples-modal"
+            >
+              {/* Background image (clipped by overflow-hidden on the button) */}
+              <div
+                className="absolute inset-0 bg-center bg-cover transition-transform duration-500 group-hover:scale-105 will-change-transform"
+                style={{
+                  backgroundImage: `url(${s.image})`,
+                  backgroundColor: '#f5f7f9',
+                }}
+              />
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/25 to-transparent" />
+              {/* Badge */}
+              <div className="absolute top-3 left-3 inline-flex items-center rounded-full bg-white/15 backdrop-blur px-3 py-1 text-xs font-semibold text-white ring-1 ring-white/30">
+                Explore
+              </div>
+              {/* Text */}
+              <div className="absolute inset-x-0 bottom-0 p-4 md:p-5 text-white">
+                <h3 className="text-lg font-extrabold leading-tight">{s.title}</h3>
+                <p className="text-sm text-white/90">{s.desc}</p>
+                <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-white/95">
+                  View example
+                  <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M5 12h14M13 5l7 7-7 7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+              </div>
+            </motion.button>
+          ))}
+        </div>
       </div>
 
-      {/* Modal with dummy work (uses ServiceExamples.jsx) */}
+      {/* Modal */}
       <AnimatePresence>
         {openId && (
           <motion.div
@@ -73,7 +76,7 @@ export default function ServicesGrid() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 overflow-y-auto"
             onClick={() => setOpenId(null)}
           >
             <motion.div
@@ -108,7 +111,8 @@ export default function ServicesGrid() {
 
               <div className="flex items-center justify-between gap-3 p-4 md:p-5 border-t border-slate-200">
                 <p className="text-xs text-gray-500">
-                  Like what you see? Start with a quick quote — first order <span className="font-semibold text-teal-700">-40%</span>.
+                  Like what you see? Start with a quick quote — first order{' '}
+                  <span className="font-semibold text-teal-700">-40%</span>.
                 </p>
                 <a
                   href="/#hero"
